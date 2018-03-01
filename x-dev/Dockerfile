@@ -18,14 +18,18 @@ RUN apt-get update
 RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | debconf-set-selections
 RUN apt-get install -y oracle-java9-installer
 RUN apt-get install -y oracle-java9-set-default
+RUN apt-get install -y libxext6
+
+RUN apt-get install -y mlocate && updatedb
+RUN apt-get install -y apt-file && apt-file update
+RUN apt-get install -y libxrender1 libxtst6 libxi6 
 
 
 
 
 
-
-USER developer
-ENV HOME /home/developer
+#USER developer
+#ENV HOME /home/developer
 CMD bash
 
 
