@@ -22,7 +22,8 @@ RUN apt-get install -y libxext6
 
 RUN apt-get install -y mlocate && updatedb
 RUN apt-get install -y apt-file && apt-file update
-RUN apt-get install -y libxrender1 libxtst6 libxi6 
+RUN apt-get install -y libxrender1 libxtst6 libxi6
+RUN apt-get install -y x11-xserver-utils
 
 
 
