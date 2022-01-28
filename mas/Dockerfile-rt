@@ -1,0 +1,33 @@
+FROM nvcr.io/nvidia/cuda:11.5.0-runtime-ubuntu18.04
+
+RUN apt update && \
+    apt install wget -y
+
+# TensorRT
+RUN mkdir /tmp/tensorrt && \
+    cd /tmp/tensorrt && \
+    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/libcudnn8_8.3.2.44-1+cuda11.5_amd64.deb --no-check-certificate && \
+    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/libnvinfer8_8.2.3-1+cuda11.4_amd64.deb --no-check-certificate && \
+    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/libnvinfer-plugin8_8.2.3-1+cuda11.4_amd64.deb --no-check-certificate && \
+    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/libnvonnxparsers8_8.2.3-1+cuda11.4_amd64.deb --no-check-certificate && \
+    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/libnvparsers8_8.2.3-1+cuda11.4_amd64.deb --no-check-certificate 
+#    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/./python3-libnvinfer_8.2.3-1+cuda11.4_amd64.deb
+
+#RUN cd /tmp/tensorrt && \
+#    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/libcudnn8-dev_8.3.2.44-1+cuda11.5_amd64.deb && \
+#    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/libnvinfer-dev_8.2.3-1+cuda11.4_amd64.deb && \
+#    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/libnvinfer-plugin-dev_8.2.3-1+cuda11.4_amd64.deb && \
+#    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/libnvonnxparsers-dev_8.2.3-1+cuda11.4_amd64.deb && \
+#    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/libnvparsers-dev_8.2.3-1+cuda11.4_amd64.deb && \
+#    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/python3-libnvinfer-dev_8.2.3-1+cuda11.4_amd64.deb
+
+RUN cd /tmp/tensorrt && \
+	dpkg -i *.deb && \
+	ldconfig
+
+RUN rm -rf /var/lib/apt/lists/*
+
+
+
+
+
