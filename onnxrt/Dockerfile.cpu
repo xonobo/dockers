@@ -1,0 +1,30 @@
+FROM ubuntu:20.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Europe/Istanbul
+
+RUN apt -y update && \
+    apt install -y --no-install-recommends \
+		python3-dev \
+		ca-certificates \
+		g++ \
+		python3-numpy \
+		gcc \
+		make \
+		git \
+		python3-setuptools \
+		python3-wheel \
+		python3-pip && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN pip install cmake
+
+RUN mkdir temp && \
+    cd temp && \
+    git clone https://github.com/microsoft/onnxruntime.git && \
+    cd onnxruntime && \
+    latesttag=$(git describe --tags) && \
+    echo checking out ${latesttag} && \
+    git checkout ${latesttag} && \
+    git submodule update --init && \
+    ./build.sh --config RelWithDebInfo --build_shared_lib --parallel
